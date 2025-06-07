@@ -152,8 +152,11 @@ namespace DotNetCoreSqlDb.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var todo = await _context.Todo.FindAsync(id);
-            _context.Todo.Remove(todo);
-            await _context.SaveChangesAsync();
+            if (todo != null)
+            {
+                _context.Todo.Remove(todo);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 
